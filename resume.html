@@ -55,6 +55,15 @@
       ul li {
         min-height: 30px;
       }
+
+      ol {
+        padding: 0;
+        margin: 0;
+      }
+
+      ol {
+        list-style-position: inside;
+      }
   
       a {
         color: #191970;
@@ -288,25 +297,25 @@
           <p>本人是一名开源爱好者, 绝大多数技能和工具都是开源产品, 深受其益, 所以我经常混迹于 <a href='https://github.com/zhouguangming'>Github</a>, 曾为多个开源项目做出自己的一些小贡献; <a href='http://ruby-china.org/zgm'>RubyChina</a> 社区活跃用户, <a href='http://shruby.github.io/'>上海 Ruby 用户组</a> 的一员, 经常参与或者组织一些例如 RubyTuesday 的活动; 闲言碎语发在 <a href='https://twitter.com/zhouguangming'>Twitter</a>上.</p>
         </div>
 
-        <ul>
+        <ol>
           <li>
-            1. <a href='https://github.com/zhouguangming/chinese_cities'>Chinese Cities</a>
+            <a href='https://github.com/zhouguangming/chinese_cities'>Chinese Cities</a>
             <p>一个非常简单的 Gem, 当初是为了学习 Gem 的写法, 便找了一个需求来练手. 主要功能是从某个网站抓下来全国所有的城市列表, 做成的 Ruby SDK, 后来发现有人 star 并且应用到了他们自己的项目中, 就保留至今.</p>
           </li>
 
           <li>
-            2. <a href='https://gitcafe.com/zgm/Qiniu2Upyun'>Qiniu2Upyun</a>
+            <a href='https://gitcafe.com/zgm/Qiniu2Upyun'>Qiniu2Upyun</a>
             <p>又拍云开发者大赛的参赛项目, 实现原理比较简单, 从七牛的 API 中读取仓库中的资源列表, 查看又拍云 API 是否含有该资源, 若没有, 则下载该资源, 然后上传到又拍云. 加了进度的标记, 若迁移过程中断, 下次使用不需要重新开始.</p>
             <p>仅适用于小仓库迁移的场景.</p>
           </li>
 
           <li>
-            3. <a href='http://23.27.196.54:3000/'>Chat Robot</a>
+            <a href='http://23.27.196.54:3000/'>Chat Robot</a>
             <p>基于 AIML 开发的一个简单的对话机器人, 使用 Sinatra 作为 Web 框架, SQLite 作为数据库, Redis 作为 Session 存储, UI 使用 Bootstrap.</p>
           </li>
 
           <li>
-            4. 除了上述的项目, 平时还折腾一些其他小玩意儿: <a href='https://rubygems.org/gems/ruby_snake'>RubySnake</a>, 基于 Ncurses 图形库的贪吃蛇游戏, 支持两个用户局域网对战; <a href='https://rubygems.org/gems/miniserver'> Miniserver</a>, 基于 EventMachine 的 Rack Server Demo.
+            除了上述的项目, 平时还折腾一些其他小玩意儿: <a href='https://rubygems.org/gems/ruby_snake'>RubySnake</a>, 基于 Ncurses 图形库的贪吃蛇游戏, 支持两个用户局域网对战; <a href='https://rubygems.org/gems/miniserver'> Miniserver</a>, 基于 EventMachine 的 Rack Server Demo.
           </li>
         </ul>
       </div>
