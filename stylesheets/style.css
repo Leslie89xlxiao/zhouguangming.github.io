@@ -350,7 +350,7 @@ pre {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-code {
+pre code {
   font-size: 13px;
   color: #eee;
   background: #39382e;
@@ -361,6 +361,13 @@ code {
   zoom: 1;
   *display: inline;
   *vertical-align: auto; }
+
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+}
 
 img {
   max-width: 100%; }
