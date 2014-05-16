@@ -67,6 +67,10 @@ img {
   font-size: 24px;
   line-height: 1em; }
 
+ol, ul {
+  list-style-position: inside;
+}
+
 ol, ol li {
   padding: 0;
   margin: 0; }
@@ -83,7 +87,7 @@ footer {
   max-width: 600px;
   line-height: 2em;
   margin: auto;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   text-align: center; }
   footer * {
     color: #797979; }
@@ -141,7 +145,7 @@ footer {
   width: 100%;
   border-width: 0;
   border-style: solid;
-  padding: 30px 60px;
+  padding: 30px 40px;
   margin: auto; }
 
 a, .as-link {
@@ -216,6 +220,7 @@ hr {
   border-bottom: 1px dotted #CCC;
   margin: 25px 0; }
 
+
 ul.posts, ul.posts li {
   margin: 0;
   padding: 0;
@@ -236,12 +241,12 @@ ul.posts .datetime {
   text-align: right; }
 
 section.post {
-  margin: 0 -60px;
+  margin: 0 -40px;
   text-align: left;
   border-top: 0;
   padding: 0; }
   section.post > * {
-    padding: 0 60px; }
+    padding: 0 40px; }
   section.post ul ul, section.post ul ol, section.post ol ul, section.post ol ol {
     margin-left: 20px;
     padding: 0; }
@@ -249,18 +254,14 @@ section.post {
     text-transform: uppercase;
     text-align: center;
     line-height: 1.5em;
-    margin-bottom: 60px; }
+    margin-bottom: 40px; }
     section.post h1 .date {
       color: #d0d0d0;
       font-size: 10px; }
   section.post iframe {
     width: 100%; }
   section.post iframe, section.post img {
-    padding: 0 -60px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px; }
+    padding: 0 -40px; }
 
 section.post, section > p {
   font-size: 14px;
@@ -282,7 +283,7 @@ section.post, section > p {
     overflow: hidden;
     display: block;
     margin: 20px 0;
-    padding: 0px 60px; }
+    padding: 0px 40px; }
     section.post blockquote:hover, section > p blockquote:hover {
       color: #454545; }
     section.post blockquote:hover:before, section > p blockquote:hover:before {
@@ -310,7 +311,7 @@ section.post, section > p {
     margin-bottom: 5px; }
 
   section.post table {
-    padding: 15px 60px;
+    padding: 15px 40px;
     display: block;
     margin: 0;
     max-width: 100%;
@@ -355,8 +356,7 @@ code {
   color: #eee;
   background: #39382e;
   padding: 2px 4px 3px;
-  border-radius: 2px;
-  line-height: 1.4em;
+  line-height: 1.8em;
   display: inline-block;
   vertical-align: baseline;
   zoom: 1;
