@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta charset='utf-8'>
+
+    <style>
+    </style>
+
+    <script language='javascript'>
+      function Food(name, type) {
+        this.name = name;
+        // 0 是素菜, 1 是荤菜, 2 汤
+        this.type = type;
+
+        this.typeCN = type == 0 ? '素菜' : '荤菜';
+      };
+
+      function chooseFoods() {
+        var choosedFoods = Array();
+
+        var allFoods = Array(
+          new Food('鱼香肉丝', 1),
+          new Food('宫保鸡丁', 1),
+          new Food('回锅肉', 1),
+          new Food('豆角', 0),
+          new Food('清蒸虾', 1),
+          new Food('蒜泥虾', 1),
+          new Food('土豆牛腩', 1),
+          new Food('红烧肉', 1),
+          new Food('苦瓜', 0),
+          new Food('咖喱牛肉', 1),
+          new Food('咖喱鸡', 1),
+          new Food('啤酒鸭', 1),
+          new Food('木须肉', 1),
+          new Food('番茄炒蛋', 0),
+          new Food('炒青菜', 0),
+          new Food('炒芹菜', 0),
+          new Food('炒土豆丝', 0)
+        );
+
+        var div = document.getElementById('foods');
+
+        div.innerHTML = '';
+
+        var groups = document.getElementById('groups').value.split(',');
+
+        groups.forEach(function(e, i, array) {
+          var food = chooseFood(allFoods, e);
+
+          choosedFoods.push(food);
+          allFoods.splice(allFoods.indexOf(food), 1);
+
+          div.innerHTML = div.innerHTML + '<p>' + food.name + '  (' + food.typeCN + ') ' + '</p>';
+        });
+      }
+
+      function chooseFood(allFoods, type) {
+        if(type == 0) {
+          return(chooseVegetables(allFoods));
+        } else {
+          return(chooseMeat(allFoods));
+        }
+      }
+
+      // 蔬菜
+      function chooseVegetables(allFoods) {
+        var choosingFoods = allFoods.filter(function(food) { return food.type == 0; });
+
+        return(choosingFoods[Math.floor(Math.random()*choosingFoods.length)]);
+      }
+
+      // 肉类
+      function chooseMeat(allFoods) {
+        var choosingFoods = allFoods.filter(function(food) { return food.type == 1; });
+
+        return(choosingFoods[Math.floor(Math.random()*choosingFoods.length)]);
+      }
+
+    </script>
+  </head>
+
+  <body>
+    <select id='groups'>
+      <option value='0,1'>一荤一素</option>
+      <option value='0,0,1'>两荤一素</option>
+      <option value='0,0,1'>两素一荤</option>
+      <option value='0,0,1,1'>两素两荤</option>
+    </select>
+    <button id='button' onClick='chooseFoods()'>吃什么</button>
+    <div id='foods'>
+    </div>
+  </body>
+</html>
