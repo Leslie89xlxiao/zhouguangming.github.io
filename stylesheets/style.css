@@ -341,6 +341,7 @@ section.post, section > p {
   padding: 0; }
 
 pre {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   overflow-x: auto;
   padding: 20px 0;
   width: 100%;
@@ -350,7 +351,8 @@ pre {
   box-sizing: border-box; }
 
 pre code {
-  font-size: 13px;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
   color: #eee;
   background: #39382e;
   padding: 2px 4px 3px;
