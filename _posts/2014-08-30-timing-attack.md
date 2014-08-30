@@ -1,6 +1,5 @@
 ---
 layout: post
-title: 'Rails Security - Timing Attack'
 ---
 
 ![](http://zhouguangming.qiniudn.com/2014083001.jpg?imageView/2/w/1276)
