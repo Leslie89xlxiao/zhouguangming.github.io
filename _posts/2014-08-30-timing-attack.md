@@ -2,8 +2,6 @@
 layout: post
 ---
 
-![](http://zhouguangming.qiniudn.com/2014083001.jpg?imageView/2/w/1276)
-
 [计时攻击](http://en.wikipedia.org/wiki/Timing_attack) 属于旁路攻击的一种, 所谓旁路攻击就是通过对系统的物理学分析和实现方式分析, 而不是密码学分析或暴力破解, 来尝试破解密码学系统的行为. 密码学系统的电力消耗, 电磁波泄露, 时间差等信息都有可能提供对破解系统有帮助的信息.
 
 而计时攻击就是利用时间差来对计算机进行攻击, 那么它的原理是什么? 我们拿 Rails 中的一段[代码](https://github.com/rails/rails/blob/master/activesupport/lib/active_support/message_verifier.rb#L57)进行分析:
