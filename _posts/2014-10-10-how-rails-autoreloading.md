@@ -29,7 +29,7 @@ Rails 开发环境可以延迟加载类或模块, 还支持修改文件后重新
 
 当然 `ActiveSupport::Dependencies` 所做的远不止这些, 它处理了更多复杂的情况, 若希望知道里面的实现细节, 可以仔细看看[这个文件](https://github.com/rails/rails/blob/08754f12e65a9ec79633a605e986d0f1ffa4b251/activesupport/lib/active_support/dependencies.rb).
 
-Rails 提供一系列配置可以扩展自动加载的路径:
+Rails 还提供一系列配置可以扩展自动加载的路径, 使其使用更加灵活:
 
 ```ruby
 config.autoload_paths += %w(#{config.root}/lib)
@@ -37,4 +37,7 @@ config.autoload_paths += %w(#{config.root}/lib)
 config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 
 config.paths['config/routes.rb'] += Dir['config/routes/**/*.rb']
+
+# or close this feature
+config.cache_classes = false
 ```
