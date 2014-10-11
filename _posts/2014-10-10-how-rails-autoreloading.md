@@ -37,7 +37,9 @@ ActiveSupport::FileUpdateChecker 用于检查文件是否被修改并执行重�
 
 当然 ActiveSupport::Dependencies 所做的远不止这些, 它处理了更多复杂的情况, 若希望知道里面的实现细节, 可以仔细看看[这个文件](https://github.com/rails/rails/blob/08754f12e65a9ec79633a605e986d0f1ffa4b251/activesupport/lib/active_support/dependencies.rb).
 
-Rails 还提供一系列配置可以扩展自动加载的路径, 使其使用更加灵活:
+#### 更多
+
+Rails 还提供一系列配置可以扩展自动加载的路径, 让其使用更加灵活:
 
 ```ruby
 config.autoload_paths += %w(#{config.root}/lib)
