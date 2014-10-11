@@ -15,20 +15,15 @@ Rails 开发环境可以延迟加载类或模块, 还支持修改文件后重新
 
   3. i18n 文件, 如 config/locales/en.yml.
 
-ActiveSupport::FileUpdateChecker 用于检查文件是否被修改, 其原理是 `File.mtime` 随着文件的保存而发生变化. 当发现有文件被修改时, 会触发预设的函数, 用于重新加载数据, 例如:
+ActiveSupport::FileUpdateChecker 用于检查文件是否被修改并执行重新加载, 大致流程:
 
-```ruby
-# https://github.com/rails/rails/blob/master/activesupport/lib/active_support/i18n_railtie.rb#L56
+1. 修改文件会改变其 `File.mtime`, 这是此功能的前提.
 
-def initialize_i18n
-  ...
-  reloader = ActiveSupport::FileUpdateChecker.new(I18n.load_path.dup){ I18n.reload! }
-  app.reloaders << reloader
-  ActionDispatch::Reloader.to_prepare { reloader.execute_if_updated }
-  reloader.execute
-  ...
-end
-```
+2. 找到被监控的文件中 mtime 最大的时间记为 current\_updated\_at.
+
+3. 将该时间与用于保存之前最后一次修改时间的实例变量 @last\_update\_at 进行比较, 若前者大于后者则认为有文件被修改过.
+
+4. 若发现有文件被修改过, 则将 current\_updated\_at 赋值给 @last\_update\_at 用于下次比较, 并且执行预设的函数, 清空旧数据, 导入新数据.
 
 #### 自动加载的工作原理
 
@@ -36,7 +31,7 @@ end
 
   1. 由于还没有加载过定义该类的文件所以会抛出 NameError 异常, 但是 ActiveSupport::Dependencies 重新实现了 `Module#const_missing` 方法, 避免了直接抛出异常.
 
-  2. 根据 **Convention Over Configuration** 原则, 在 ActiveSupport::Dependencies.autoload_paths (如 app/models, app/controllers 等) 中遍历, 尝试找到对应的 user.rb 文件.
+  2. 根据 **Convention Over Configuration** 原则, 在 ActiveSupport::Dependencies.autoload\_paths (如 app/models, app/controllers 等) 中遍历, 尝试找到对应的 user.rb 文件.
 
   3. 在找到对应的文件之后, 使用 `Kernel#load` 方法加载该文件, 否则报异常. 之所以使用 load 方法, 而不是常用的 require 方法, 是因为 require 只能加载一次, 而 load 可以重复加载.
 
