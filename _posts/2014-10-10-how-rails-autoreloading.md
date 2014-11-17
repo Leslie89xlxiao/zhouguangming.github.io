@@ -7,25 +7,23 @@ Rails 开发环境可以延迟加载类或模块, 还支持修改文件后重新
 
 #### 重新加载的工作原理
 
-当请求到达 ActionDispatch::Reloader 时, 会使用 Rails Application 的 3 个 reloader 检查文件是否被修改, 他们分别监控的文件有:
+当请求到达 ActionDispatch::Reloader 时, 会使用 Rails Application 的 3 个 reloader(`YourApp::Application.reloaders`) 检查文件是否被修改, 他们分别监控的文件有:
 
-  1. 用户自定义的类或者模块, 如 app/models/user.rb.
+  1. 用户自定义的类或者模块, 如 app/models/user.rb
 
-  2. 路由文件, 如 config/routes.rb.
+  2. 路由文件, 如 config/routes.rb
 
-  3. i18n 文件, 如 config/locales/en.yml.
+  3. i18n 文件, 如 config/locales/en.yml
 
-其中核心的类为 ActiveSupport::FileUpdateChecker, 其工作原理:
+其中检查文件变化的类是 ActiveSupport::FileUpdateChecker, 其工作原理:
 
-1. 修改文件会改变其 `File.mtime`, 这是此功能的前提.
+1. 修改文件会改变其 `File.mtime`, 这是此功能的前提
 
-2. 找到被监控的文件中 mtime 最大的时间记为 current\_updated\_at.
+2. 找到被监控的文件中 mtime 最大的时间记为 current\_updated\_at
 
-3. 将该时间与用于保存之前最后一次修改时间的实例变量 @last\_update\_at 进行比较, 若前者大于后者则认为有文件被修改过.
+3. 将该时间与用于保存之前最后一次修改时间的实例变量 @last\_update\_at 进行比较, 若前者大于后者则认为有文件被修改过
 
-4. 若发现有文件被修改过, 则将 current\_updated\_at 赋值给 @last\_update\_at 用于下次比较, 并且执行预设的函数 --- 清空旧数据, 导入新数据.
-
-预设函数根据文件类型的不同而不同.
+4. 若发现有文件被修改过, 则将 current\_updated\_at 赋值给 @last\_update\_at 用于下次比较, 并执行各自预设的 reload 函数 --- 清空旧数据, 导入新数据
 
 #### 自动加载的工作原理
 
@@ -44,12 +42,15 @@ Rails 开发环境可以延迟加载类或模块, 还支持修改文件后重新
 Rails 还提供一系列配置可以扩展自动加载的路径, 让其使用更加灵活:
 
 ```ruby
+# 用户自定义类或文件 reloader
 config.autoload_paths += %w(#{config.root}/lib)
 
-config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-
+# 路由文件 reloader
 config.paths['config/routes.rb'] += Dir['config/routes/**/*.rb']
 
-# or close this feature
+# i18n 文件 reloader
+config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+
+# 关闭这个特性
 config.cache_classes = false
 ```
