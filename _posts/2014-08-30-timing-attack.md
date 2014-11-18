@@ -24,10 +24,29 @@ end
 
 原因正是为了预防计时攻击.
 
-`a == b` 在 [Ruby](https://github.com/ruby/ruby/blob/trunk/string.c#L2461) 内部使用 [memcmp](http://man7.org/linux/man-pages/man3/memcmp.3.html) 函数进行比较, 当首次发现有两个字符不一致时, 便直接返回两个字符在 ASCII 码表中的差值. 在这样的机制下, CPU 运行的时间与字符串匹配度是有正关系的, 字符串匹配度越高, CPU 运行时间越长, 因此便可以通过对比时间差的方式逐一猜测破解.
+`a == b` 在 [Ruby](https://github.com/ruby/ruby/blob/trunk/string.c#L2537) 内部使用 [memcmp](http://man7.org/linux/man-pages/man3/memcmp.3.html) 函数进行比较:
+
+```ruby
+static VALUE
+str_eql(const VALUE str1, const VALUE str2)
+{
+    const long len = RSTRING_LEN(str1);
+    const char *ptr1, *ptr2;
+
+    if (len != RSTRING_LEN(str2)) return Qfalse;
+    if (!rb_str_comparable(str1, str2)) return Qfalse;
+    if ((ptr1 = RSTRING_PTR(str1)) == (ptr2 = RSTRING_PTR(str2)))
+  return Qtrue;
+    if (memcmp(ptr1, ptr2, len) == 0)
+  return Qtrue;
+    return Qfalse;
+}
+```
+
+该函数作用是: 当首次发现字符串中有两个字符不一致时, 便直接返回两个字符在 ASCII 码表中的差值. 在这样的机制下, CPU 运行的时间与字符串匹配度是有正关系的, 字符串匹配度越高, CPU 运行时间越长, 因此便可以通过对比时间差的方式逐一猜测破解.
 
 预防计时攻击的方法通常也很简单, 使用 Constant-Time 的方式. 如上述比较摘要是否相等的示例代码, 当发现两个字符不一致时, 并没有立即返回, 而是继续比较下去, 因此使得计算时间不会变化.
 
 虽然这样的处理, 时间复杂度提高了, 在语言级别的效率也降低了, 但在系统安全的关键部分, 付出了一点点性能的代价还是值得的.
 
-也许你会觉得不解(我也是), 每个请求在不同的情况下包括网络延迟, 计算机运行状态都是不可能完全一致的, 况且这么一点点的时间差在 Rails 处理整个复杂的请求过程中(你应该知道, 在 Rails 中一个请求可能生成数以万计的 Ruby 对象)也显得非常的微不足道, 应该是非常难以利用的, 计时攻击难道仅仅存活在理论当中吗? 这篇[论文](http://www.cs.rice.edu/~dwallach/pub/crosby-timing2009.pdf)也许可以给我们带来一些参考.
+也许你会觉得不解(我也是), 每个请求在不同的情况下包括网络延迟, 计算机运行状态都是不可能完全一致的, 况且这么一点点的时间差在 Rails 处理整个复杂的请求过程中(你应该知道, 在 Rails 中一个请求可能生成数以万计的 Ruby 对象)也显得非常的微不足道, 应该是非常难以利用的, 计时攻击难道仅仅存活在理论当中吗? 这篇 [论文](http://www.cs.rice.edu/~dwallach/pub/crosby-timing2009.pdf) 也许可以给我们带来一些参考.
