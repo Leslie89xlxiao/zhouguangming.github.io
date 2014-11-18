@@ -1,5 +1,6 @@
 ---
 layout: post
+title: 5 ways to run commands from Ruby
 ---
 
 #### Kernel#exec
