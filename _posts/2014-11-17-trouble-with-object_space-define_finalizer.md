@@ -53,9 +53,9 @@ define_final0(VALUE obj, VALUE block)
 }
 ```
 
-可以知道, str 的 finalize proc 被存放在 Ruby 全局的 finalizer\_table 中, 由于闭包特性这个 finalize proc 的上下文又保存了 str 使其可以在中间被访问, 因此导致 str 一直被使用, 无法被 GC 回收.
+可以知道, str 的 finalize proc 被存放在 Ruby 全局的 finalizer\_table 中, 由于闭包特性 finalize proc 的上下文保存了 str 这个变量, 导致其一直被使用, 从而无法被 GC 回收.
 
-知道了原因之后, 便可以从 2 个方面修改上述代码, 使其按照预想的方式运行:
+知道了原因之后, 便可以从 2 个方面修改上述代码, 使其按照我预想(正确)的方式运行:
 
 * 手动更改 str = nil, 使得 'hello, world' * 1\_000\_000 这个字符串没有变量引用它
 
