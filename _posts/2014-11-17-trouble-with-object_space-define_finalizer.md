@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Trouble with ObjectSpace.define_finalizer"
+title: Trouble With ObjectSpace.define_finalizer
 ---
 
 [ObjectSpace.define_finalizer](http://ruby-doc.org/core-2.1.4/ObjectSpace.html#method-c-define_finalizer) 方法可以接受一个 proc, 当某个对象被 GC 销毁时会回调该 proc. 当我按照文档使用这个方法的时候却发现一个很奇怪的现象, 测试代码如下:
