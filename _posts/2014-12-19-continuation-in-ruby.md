@@ -57,15 +57,14 @@ end
 # example
 
 x = amb 0, 1, 2, 3, 4
-
 y = amb 0, 1, 2, 3, 4
 
 amb if x * y != 4
-amb if x + y != 5
+amb if x + y != 4
 
 puts "x = #{x}, y = #{y}"
 
 # output
 
-x = 1, y = 4
+x = 2, y = 2
 ```
