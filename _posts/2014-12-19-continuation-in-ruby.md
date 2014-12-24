@@ -38,17 +38,9 @@ $backtracks = []
 
 def amb *choices
   if choices.empty?
-    if $backtracks.empty?
-      raise 'No backtrack'
-    else
-      $backtracks.pop.call
-    end
+    $backtracks.empty? ? raise('No backtrack') : $backtracks.pop.call
   else
-    callcc do |cc|
-      $backtracks.push(cc)
-
-      return choices.first
-    end
+    callcc { |cc| $backtracks.push(cc) and return(choices.first) }
 
     amb *choices[1..choices.length]
   end
