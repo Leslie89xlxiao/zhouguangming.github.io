@@ -29,3 +29,15 @@ say { 'Hello, World!' }
 ```
 
 由于第二种方式在调用时每次都会生成一个 Proc 对象, 在性能上要比第一种方式慢数倍, 所以尽量不要使用, 除非你确定需要一个 Proc 对象.
+
+另有一个好玩的 trick: 在方法内使用 Proc.new 若后面没有跟一个代码块, 这个 Proc 对象将会默认使用方法外部的代码块.
+
+```ruby
+def say
+  Proc.new.call
+end
+
+say { 'Hello, World!' }
+
+=> 'Hello, World!'
+```
