@@ -14,7 +14,7 @@ links:
   - name:         Twitter
     url:          https://twitter.com/zhouguangming
     external:     true
-pygments:         true
+highlighter:      pygments
 permalink:        pretty
 markdown:         redcarpet
 redcarpet:
